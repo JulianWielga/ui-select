@@ -749,6 +749,7 @@
     _searchInput.on('blur', function() {
       $timeout(function() {
         ctrl.activeMatchIndex = -1;
+        ctrl.close(true);
       });
     });
 
@@ -1220,7 +1221,7 @@
         attrs.$observe('placeholder', function(placeholder) {
           $select.placeholder = placeholder !== undefined ? placeholder : uiSelectConfig.placeholder;
         });
-        
+
         $select.allowClear = (angular.isDefined(attrs.allowClear)) ? (attrs.allowClear === '') ? true : (attrs.allowClear.toLowerCase() === 'true') : false;
 
         if($select.multiple){

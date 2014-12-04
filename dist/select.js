@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.9.1 - 2014-12-03T16:41:44.798Z
+ * Version: 0.9.1 - 2014-12-04T11:24:37.502Z
  * License: MIT
  */
 
@@ -757,6 +757,7 @@
     _searchInput.on('blur', function() {
       $timeout(function() {
         ctrl.activeMatchIndex = -1;
+        ctrl.close(true);
       });
     });
 
@@ -845,7 +846,14 @@
             attrs.multiple.toLowerCase() === 'true'
         );
 
-        $select.closeOnSelect = (angular.isDefined(attrs.closeOnSelect) && attrs.closeOnSelect.toLowerCase() === 'false') ? false : uiSelectConfig.closeOnSelect;
+        $select.closeOnSelect = function() {
+          if (angular.isDefined(attrs.closeOnSelect)) {
+            return $parse(attrs.closeOnSelect)();
+          } else {
+            return uiSelectConfig.closeOnSelect;
+          }
+        }();
+
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
 
@@ -1221,7 +1229,7 @@
         attrs.$observe('placeholder', function(placeholder) {
           $select.placeholder = placeholder !== undefined ? placeholder : uiSelectConfig.placeholder;
         });
-        
+
         $select.allowClear = (angular.isDefined(attrs.allowClear)) ? (attrs.allowClear === '') ? true : (attrs.allowClear.toLowerCase() === 'true') : false;
 
         if($select.multiple){
