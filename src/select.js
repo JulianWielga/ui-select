@@ -749,7 +749,7 @@
     _searchInput.on('blur', function() {
       $timeout(function() {
         ctrl.activeMatchIndex = -1;
-        ctrl.close(true);
+        if (ctrl.items.length < 1) ctrl.close(true);
       });
     });
 
