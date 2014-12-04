@@ -1,7 +1,7 @@
 /*!
  * ui-select
  * http://github.com/angular-ui/ui-select
- * Version: 0.9.1 - 2014-12-04T11:24:37.502Z
+ * Version: 0.9.1 - 2014-12-04T12:25:05.678Z
  * License: MIT
  */
 
@@ -757,7 +757,7 @@
     _searchInput.on('blur', function() {
       $timeout(function() {
         ctrl.activeMatchIndex = -1;
-        ctrl.close(true);
+        if (ctrl.items.length < 1) ctrl.close(true);
       });
     });
 
